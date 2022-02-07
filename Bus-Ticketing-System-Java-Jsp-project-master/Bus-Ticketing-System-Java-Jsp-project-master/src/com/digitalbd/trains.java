@@ -18,7 +18,9 @@ public class trains {
 		db = new Database();
 		this.totalSeat = 0;
 	}
-	public trains(String trnId) {
+	public trains(String trnId)
+	// here we created the constructor as we need to trigger the database everytime
+	{
 		db = new Database();
 		String sql = "SELECT * FROM "+this.table+" WHERE id='"+trnId+"'";
 		try {
@@ -37,6 +39,8 @@ public class trains {
 	}
 	public ArrayList<Train> getAll() {
 		ArrayList<Train> trains = new ArrayList<Train>();
+		
+		  // here it is used the array list as we need to insert data everytime 
 		String sqlQuery = "SELECT * FROM " + this.table;
 		try {
 			ResultSet result = db.statement.executeQuery(sqlQuery);
@@ -86,6 +90,7 @@ public class trains {
 					+ " AND destinations.station_to = '"+to+"'"
 					+ " AND trains.type = '"+coach+"'"
 					+ " ORDER BY name ASC";
+			 // here we have written the SQL query with string data
 		}else {
 			 sql = "SELECT destinations.*,trains.type as coach,trains.id as trainId,trains.name,trains.code,trains.type FROM trains"
 					+ " INNER JOIN destinations ON "
@@ -99,6 +104,7 @@ public class trains {
 			ResultSet result = this.db.statement.executeQuery(sql);
 			while(result.next()) {
 				HashMap<String,String> tempTrain = new HashMap<String,String>();
+				// here hashmap is used to store the data with multiple values at every index
 				tempTrain.put("name", result.getString("name"));
 				tempTrain.put("destination_id", result.getString("id"));
 				tempTrain.put("coach", result.getString("coach"));
